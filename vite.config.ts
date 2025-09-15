@@ -17,6 +17,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     projects: [
+      { test: { name: "unit tests", environment: "jsdom" } },
       {
         extends: true,
         plugins: [

@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   CssBaseline,
+  Divider,
   Drawer,
   IconButton,
   List,
@@ -68,6 +69,15 @@ export const Layout = () => {
         onClick={closeDrawer}
       >
         <Drawer open={drawerOpened}>
+          <Toolbar>
+            <Typography
+              variant="h6"
+              sx={{ display: "flex", flexDirection: "start", flexGrow: 1 }}
+            >
+              Las Palabras
+            </Typography>
+          </Toolbar>
+          <Divider />
           <List sx={{ width: 250 }}>
             {menuItems.map(({ to, title }) => (
               <ListItem key={`mobile-${to}`}>
