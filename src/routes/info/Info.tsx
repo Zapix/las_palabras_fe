@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 
-import { BACKEND_URL } from "../../data/constants.tsx";
+import { BACKEND_URL } from "../../api/constants.tsx";
 
 const Info = () => {
   const { version, environment } = useLoaderData<{

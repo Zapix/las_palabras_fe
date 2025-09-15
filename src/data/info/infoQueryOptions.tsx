@@ -1,9 +1,15 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { BACKEND_URL } from "../constants.tsx";
+import { clientV1 } from "../../api";
 
 const fetchInfo: () => Promise<{ environment: string; version: string }> = () =>
-  fetch(`${BACKEND_URL}/info`).then((response) => response.json());
+  clientV1.GET("/info").then(({ data }) => {
+    if (!data) {
+      return Promise.reject("Data doesn't provided");
+    } else {
+      return data;
+    }
+  });
 
 export const infoQueryOptions = () =>
   queryOptions({ queryKey: ["info"], queryFn: fetchInfo });
