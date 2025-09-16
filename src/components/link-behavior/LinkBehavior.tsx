@@ -10,11 +10,21 @@ export const LinkBehavior = forwardRef<
 >((props, ref) => {
   const { href, ...other } = props;
   // Map href (MUI) -> to (react-router)
+  const url = URL.parse(href.toString(), window.location.toString());
+  if (url === null) {
+    throw new Error(`Invalid URL: ${href}`);
+  }
+  url.searchParams.append(
+    "refer",
+    window.location.pathname + window.location.search
+  );
+  const modifiedHref = url.pathname + url.search;
+
   return (
     <RouterLink
       data-testid="custom-link"
       ref={ref}
-      to={href}
+      to={modifiedHref}
       {...other}
     />
   );
