@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLoaderData } from "react-router";
 import { Box, Pagination, PaginationItem, Link } from "@mui/material";
 
@@ -11,11 +12,16 @@ const pageLink = (page: number) =>
 
 export const List = () => {
   const data = useLoaderData<LoaderReturnData<typeof loader>>();
+  const { items = [], page = 1, per_page = 20, total = 0 } = data || {};
+  const pages = Math.ceil(total / per_page);
+
+  useEffect(() => {
+    window.scroll({ top: 0, behavior: "smooth" });
+  }, [page]);
+
   if (!data) {
     return;
   }
-  const { items, page, per_page, total } = data;
-  const pages = Math.ceil(total / per_page);
 
   return (
     <Box
@@ -29,7 +35,7 @@ export const List = () => {
         renderItem={(item) => (
           <PaginationItem
             component={Link}
-            to={pageLink(item.page || 1)}
+            href={pageLink(item.page || 1)}
             {...item}
           />
         )}
