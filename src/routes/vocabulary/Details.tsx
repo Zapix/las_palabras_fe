@@ -1,23 +1,21 @@
 import { useLoaderData, useSearchParams } from "react-router";
-import {
-  Box,
-  Container,
-  Divider,
-  List,
-  ListItem,
-  Typography,
-  IconButton
-} from "@mui/material";
+import { Box, Container, Divider, Typography, IconButton } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { LoaderReturnData } from "../../data";
 import type { loader } from "../../data/vocabulary/details";
+import { EditWordForm } from "../../components/edit-word-form";
+import { updateMutationOptions as updateWordOptions } from "../../data/vocabulary/update";
 
 export const Details = () => {
   const [searchParams] = useSearchParams();
   const prevPage = searchParams.get("refer") || "/vocabulary";
 
+  const queryClient = useQueryClient();
   const data = useLoaderData<LoaderReturnData<typeof loader>>();
+  const { mutateAsync } = useMutation(updateWordOptions(data.id, queryClient));
+
   if (!data) {
     return <Box>No data found</Box>;
   }
@@ -34,26 +32,12 @@ export const Details = () => {
       </Typography>
       <Divider />
       <Container>
-        <List>
-          <ListItem>
-            <Typography variant="body1">Spanish:</Typography>
-            <Typography
-              variant="body2"
-              sx={{ ml: 2 }}
-            >
-              {data.spanish}
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography variant="body1">Russian:</Typography>
-            <Typography
-              variant="body2"
-              sx={{ ml: 2 }}
-            >
-              {data.russian}
-            </Typography>
-          </ListItem>
-        </List>
+        <EditWordForm
+          word={data}
+          onUpdateWord={async (data) => {
+            await mutateAsync(data);
+          }}
+        />
       </Container>
     </Box>
   );

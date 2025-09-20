@@ -14,9 +14,12 @@ export const LinkBehavior = forwardRef<
   if (url === null) {
     throw new Error(`Invalid URL: ${href}`);
   }
+  const locationSearch = new URLSearchParams(window.location.search);
+  locationSearch.delete("refer");
+
   url.searchParams.append(
     "refer",
-    window.location.pathname + window.location.search
+    window.location.pathname + "?" + locationSearch.toString()
   );
   const modifiedHref = url.pathname + url.search;
 
