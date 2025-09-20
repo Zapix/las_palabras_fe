@@ -4,7 +4,6 @@ import {
   AppBar,
   Box,
   Button,
-  Container,
   CssBaseline,
   Divider,
   Drawer,
@@ -119,9 +118,9 @@ export const Layout = () => {
           </List>
         </Drawer>
       </Box>
-      <Container sx={{ my: "var(--app-bar-size)", width: "100vw" }}>
+      <Box sx={{ my: "var(--app-bar-size)", width: "100vw" }}>
         <Outlet />
-      </Container>
+      </Box>
     </Box>
   );
 };

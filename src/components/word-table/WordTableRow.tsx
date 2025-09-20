@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "@mui/material";
+import { Link, TableCell, TableRow } from "@mui/material";
 import { Check as CheckIcon, Close as CloseIcon } from "@mui/icons-material";
 import { format, toDate } from "date-fns";
 
@@ -8,8 +8,22 @@ export type WordTableRowProps = { word: Word };
 
 export const WordTableRow = ({ word }: WordTableRowProps) => (
   <TableRow>
-    <TableCell>{word.spanish}</TableCell>
-    <TableCell>{word.russian}</TableCell>
+    <TableCell>
+      <Link
+        href={`/vocabulary/${word.id}`}
+        underline="hover"
+      >
+        {word.spanish}
+      </Link>
+    </TableCell>
+    <TableCell>
+      <Link
+        href={`/vocabulary/${word.id}`}
+        underline="hover"
+      >
+        {word.russian}
+      </Link>
+    </TableCell>
     <TableCell>{word.is_verified ? <CheckIcon /> : <CloseIcon />}</TableCell>
     <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
       {format(toDate(word.updated_at), "dd.MM.yyyy HH:mm:ss")}
