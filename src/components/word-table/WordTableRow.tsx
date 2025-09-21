@@ -23,6 +23,7 @@ export const WordTableRow = ({
         <Link
           href={`/vocabulary/${word.id}`}
           underline="hover"
+          data-transition-type="rtl"
         >
           {word.spanish}
         </Link>
@@ -31,6 +32,7 @@ export const WordTableRow = ({
         <Link
           href={`/vocabulary/${word.id}`}
           underline="hover"
+          data-transition-type="rtl"
         >
           {word.russian}
         </Link>
