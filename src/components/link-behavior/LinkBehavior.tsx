@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useCallback, type MouseEvent } from "react";
 import {
   Link as RouterLink,
   type LinkProps as RouterLinkProps
@@ -6,9 +6,23 @@ import {
 
 export const LinkBehavior = forwardRef<
   HTMLAnchorElement,
-  Omit<RouterLinkProps, "to"> & { href: RouterLinkProps["to"] }
+  Omit<RouterLinkProps, "to"> & { href: RouterLinkProps["to"] } & {
+    "data-transition-type"?: "rtl" | "ltr" | "fade";
+  }
 >((props, ref) => {
-  const { href, ...other } = props;
+  const { href, onClick: originalClick, ...other } = props;
+  const transitionType = other["data-transition-type"] || "fade";
+
+  const handleClick = useCallback(
+    (e: MouseEvent<HTMLAnchorElement>) => {
+      document.documentElement.dataset.transition = transitionType;
+      if (originalClick) {
+        originalClick(e);
+      }
+    },
+    [transitionType]
+  );
+
   // Map href (MUI) -> to (react-router)
   const url = URL.parse(href.toString(), window.location.toString());
   if (url === null) {
@@ -28,6 +42,8 @@ export const LinkBehavior = forwardRef<
       data-testid="custom-link"
       ref={ref}
       to={modifiedHref}
+      viewTransition={true}
+      onClick={handleClick}
       {...other}
     />
   );
