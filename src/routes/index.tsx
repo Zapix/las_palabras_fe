@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 
 import { queryClient } from "../queryClient.tsx";
 import { loader as infoLoader } from "../data/info";
-import { loader as vocabularyListLoader } from "../data/vocabulary/list";
 import { loader as vocabularyDetailsLoader } from "../data/vocabulary/details";
 
 import Home from "./home";
@@ -16,11 +15,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/info", element: <Info />, loader: infoLoader(queryClient) },
-      {
-        path: "/vocabulary",
-        element: <List />,
-        loader: vocabularyListLoader(queryClient)
-      },
+      { path: "/vocabulary", element: <List /> },
       {
         path: "/vocabulary/:id",
         element: <Details />,

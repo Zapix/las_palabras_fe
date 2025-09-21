@@ -55,6 +55,7 @@ export const Layout = () => {
       <AppBar
         component="nav"
         ref={appBarRef}
+        sx={{ viewTransitionName: "app-bar" }}
       >
         <Toolbar
           sx={{
@@ -118,7 +119,14 @@ export const Layout = () => {
           </List>
         </Drawer>
       </Box>
-      <Box sx={{ my: "var(--app-bar-size)", width: "100vw" }}>
+      <Box
+        id="main-part"
+        sx={{
+          my: "var(--app-bar-size)",
+          width: "100vw",
+          viewTransitionName: "main-part"
+        }}
+      >
         <Outlet />
       </Box>
     </Box>
