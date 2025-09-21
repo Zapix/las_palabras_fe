@@ -44,3 +44,93 @@ body {
     background-color: #ffffff;
   }
 }
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-to-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-from-left {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-to-right {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+:root {
+    --transition-animation-old: fade-out;
+    --transition-animation-new: fade-in;
+    --transition-time: 210ms;
+}
+
+html[data-transition="ltr"] {
+    --transition-animation-old: slide-to-right;
+    --transition-animation-new: slide-from-left;
+}
+
+html[data-transition="rtl"] {
+    --transition-animation-old: slide-to-left;
+    --transition-animation-new: slide-from-right;
+}
+
+html[data-transition="fade"] {
+    --transition-animation-old: fade-out;
+    --transition-animation-new: fade-in;
+}
+
+::view-transition-old(main-part) {
+    animation: var(--transition-time) ease both var(--transition-animation-old);
+}
+
+::view-transition-new(main-part) {
+  animation: var(--transition-time) ease both var(--transition-animation-new);
+}
+
+::view-transition-old(app-bar) {
+    animation: none;
+}
+::view-transition-new(app-bar) {
+    animation: none;
+}

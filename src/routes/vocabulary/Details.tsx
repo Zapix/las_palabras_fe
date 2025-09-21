@@ -25,6 +25,7 @@ export const Details = () => {
         <IconButton
           href={prevPage}
           size="large"
+          data-transition-type="ltr"
         >
           <ArrowBack />
         </IconButton>
