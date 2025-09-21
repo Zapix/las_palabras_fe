@@ -3,7 +3,10 @@ import type { loader } from "./list";
 import type { ArrayItem } from "../../utils/ArrayItem";
 import type { LoaderReturnData } from "../utils";
 
-export type Vocabulary = NonNullable<LoaderReturnData<typeof loader>>["items"];
+export type VocabularyListLoaderData = NonNullable<
+  LoaderReturnData<typeof loader>
+>;
+export type Vocabulary = VocabularyListLoaderData["items"];
 export type Word = ArrayItem<Vocabulary>;
 export type PartOfSpeech = Word["part_of_speech"];
 
