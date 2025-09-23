@@ -129,8 +129,8 @@ html[data-transition="fade"] {
 }
 
 ::view-transition-old(app-bar) {
-    animation: none;
+    animation: fade;
 }
 ::view-transition-new(app-bar) {
-    animation: none;
+    animation: fade;
 }

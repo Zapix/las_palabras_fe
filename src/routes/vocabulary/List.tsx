@@ -1,6 +1,13 @@
 import { useMemo, useEffect } from "react";
 import { useLocation } from "react-router";
-import { Container, Pagination, PaginationItem, Link } from "@mui/material";
+import {
+  Container,
+  Pagination,
+  PaginationItem,
+  Link,
+  Fab
+} from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { listQueryOptions } from "../../data/vocabulary/list";
@@ -50,6 +57,21 @@ export const List = () => {
     <Container
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
+      <Fab
+        color="primary"
+        sx={{
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          zIndex: 1000,
+          transition: "transform 0.2s",
+          "&:hover": { transform: "scale(1.1)", color: "white" }
+        }}
+        data-transition-type="rtl"
+        href="/vocabulary/create"
+      >
+        <AddIcon />
+      </Fab>
       <WordTable
         vocabulary={items}
         onVerifiedChange={toggleVerified}
