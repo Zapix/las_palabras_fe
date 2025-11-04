@@ -39,6 +39,9 @@ export const List = () => {
           <ListItem
             key={v.id}
             divider
+            component={Link}
+            href={`/verbs/${v.id}`}
+            data-transition-type="rtl"
           >
             <ListItemText
               primary={v.verb}
