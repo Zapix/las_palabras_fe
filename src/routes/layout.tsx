@@ -47,7 +47,8 @@ export const Layout = () => {
   const menuItems = [
     { to: "/", title: "Home" },
     { to: "/info", title: "Info" },
-    { to: "/vocabulary", title: "Vocabulary" }
+    { to: "/vocabulary", title: "Vocabulary" },
+    { to: "/verbs", title: "Verbs" }
   ];
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
