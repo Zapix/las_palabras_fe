@@ -4,6 +4,28 @@
  */
 
 export interface paths {
+  "/api/v1/verbs": {
+    parameters: { query?: never; header?: never; path?: never; cookie?: never };
+    get: operations["list_verbs"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/verbs/{id}": {
+    parameters: { query?: never; header?: never; path?: never; cookie?: never };
+    get: operations["get_verb"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/api/v1/vocabulary": {
     parameters: { query?: never; header?: never; path?: never; cookie?: never };
     get: operations["list_words"];
@@ -52,7 +74,44 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
+    Imperativo: {
+      afirmativo: components["schemas"]["RegularConjugacion"];
+      negativo: components["schemas"]["RegularConjugacion"];
+    };
+    Indicativo: {
+      condicional: components["schemas"]["RegularConjugacion"];
+      futuro: components["schemas"]["RegularConjugacion"];
+      imperfecto: components["schemas"]["RegularConjugacion"];
+      presente: components["schemas"]["RegularConjugacion"];
+      preterito: components["schemas"]["RegularConjugacion"];
+    };
     Info: { environment: string; version: string };
+    LightVerb: {
+      /** Format: date-time */
+      created_at: string;
+      /** Format: uuid */
+      id: string;
+      /** Format: date-time */
+      updated_at: string;
+      verb: string;
+    };
+    Pagination_LightVerb: {
+      items: {
+        /** Format: date-time */
+        created_at: string;
+        /** Format: uuid */
+        id: string;
+        /** Format: date-time */
+        updated_at: string;
+        verb: string;
+      }[];
+      /** Format: int64 */
+      page: number;
+      /** Format: int64 */
+      per_page: number;
+      /** Format: int64 */
+      total: number;
+    };
     Pagination_Word: {
       items: {
         /** Format: date-time */
@@ -84,17 +143,65 @@ export interface components {
       | "conjunction"
       | "interjection"
       | "other";
+    Perfecto: {
+      condicional: components["schemas"]["RegularConjugacion"];
+      futuro: components["schemas"]["RegularConjugacion"];
+      pasado: components["schemas"]["RegularConjugacion"];
+      presente: components["schemas"]["RegularConjugacion"];
+      preterito: components["schemas"]["RegularConjugacion"];
+    };
+    PerfectoSubjuntivo: {
+      futuro: components["schemas"]["RegularConjugacion"];
+      pasado: components["schemas"]["RegularConjugacion"];
+      presente: components["schemas"]["RegularConjugacion"];
+    };
+    Progresivo: {
+      condicional: components["schemas"]["RegularConjugacion"];
+      futuro: components["schemas"]["RegularConjugacion"];
+      imperfecto: components["schemas"]["RegularConjugacion"];
+      presente: components["schemas"]["RegularConjugacion"];
+      preterito: components["schemas"]["RegularConjugacion"];
+    };
     RawWord: {
       is_verified?: boolean | null;
       part_of_speech: components["schemas"]["PartOfSpeech"];
       russian: string;
       spanish: string;
     };
+    RegularConjugacion: {
+      first_person_plural: string;
+      first_person_singular: string;
+      second_person_plural: string;
+      second_person_singular: string;
+      third_person_plural: string;
+      third_person_singular: string;
+    };
+    Subjuntivo: {
+      futuro: components["schemas"]["RegularConjugacion"];
+      imperfecto: components["schemas"]["RegularConjugacion"];
+      imperfecto2: components["schemas"]["RegularConjugacion"];
+      presente: components["schemas"]["RegularConjugacion"];
+    };
     UpdateVocabularyData: {
       is_verified?: boolean | null;
       part_of_speech?: string | null;
       russian?: string | null;
       spanish?: string | null;
+    };
+    WebVerb: {
+      /** Format: date-time */
+      created_at: string;
+      /** Format: uuid */
+      id: string;
+      imperativo?: null | components["schemas"]["Imperativo"];
+      indicativo?: null | components["schemas"]["Indicativo"];
+      perfecto?: null | components["schemas"]["Perfecto"];
+      perfecto_subjuntivo?: null | components["schemas"]["PerfectoSubjuntivo"];
+      progresivo?: null | components["schemas"]["Progresivo"];
+      subjuntivo?: null | components["schemas"]["Subjuntivo"];
+      /** Format: date-time */
+      updated_at: string;
+      verb: string;
     };
     Word: {
       /** Format: date-time */
@@ -117,6 +224,54 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+  list_verbs: {
+    parameters: {
+      query?: {
+        /** @description Page number, starting from 0 */
+        page?: number;
+        /** @description Number of items per page */
+        per_page?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description List of verbs */
+      200: {
+        headers: { [name: string]: unknown };
+        content: {
+          "application/json": components["schemas"]["Pagination_LightVerb"];
+        };
+      };
+      /** @description Internal server error */
+      500: { headers: { [name: string]: unknown }; content?: never };
+    };
+  };
+  get_verb: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID of the verb to retrieve as uuid */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Details of the verb */
+      200: {
+        headers: { [name: string]: unknown };
+        content: { "application/json": components["schemas"]["WebVerb"] };
+      };
+      /** @description Verb not found */
+      404: { headers: { [name: string]: unknown }; content?: never };
+      /** @description Internal server error */
+      500: { headers: { [name: string]: unknown }; content?: never };
+    };
+  };
   list_words: {
     parameters: {
       query?: {
