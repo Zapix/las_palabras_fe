@@ -1,6 +1,14 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router";
-import { Container, List as MUIList, ListItem, ListItemText, Pagination, PaginationItem, Link } from "@mui/material";
+import {
+  Container,
+  List as MUIList,
+  ListItem,
+  ListItemText,
+  Pagination,
+  PaginationItem,
+  Link
+} from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 
 import { listQueryOptions } from "../../data/verbs/list";
@@ -17,17 +25,25 @@ export const List = () => {
   }, [location]);
 
   const { data } = useQuery(listQueryOptions(pageParam - 1));
-  const { items = [], page = 1, per_page = 20, total = 0 } = data || {} as any;
+  const { items = [], page = 1, per_page = 20, total = 0 } = data || {};
   const pages = Math.ceil(total / per_page);
 
   if (!data) return null;
 
   return (
-    <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <Container
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <MUIList sx={{ width: "100%", maxWidth: 800 }}>
-        {items.map((v: any) => (
-          <ListItem key={v.id} divider>
-            <ListItemText primary={v.verb} secondary={new Date(v.updated_at).toLocaleString()} />
+        {items.map((v) => (
+          <ListItem
+            key={v.id}
+            divider
+          >
+            <ListItemText
+              primary={v.verb}
+              secondary={new Date(v.updated_at).toLocaleString()}
+            />
           </ListItem>
         ))}
       </MUIList>
