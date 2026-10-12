@@ -1,69 +1,22 @@
-# React + TypeScript + Vite
+# las_palabras_fe — archived
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **This repository is archived and no longer maintained.**
+> The frontend moved to the monorepo **[Zapix/las_palabras_bot](https://github.com/Zapix/las_palabras_bot)**,
+> under [`apps/web`](https://github.com/Zapix/las_palabras_bot/tree/main/apps/web).
 
-Currently, two official plugins are available:
+## What happened
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- The code was imported into `las_palabras_bot` with its full git history
+  ([PR #87](https://github.com/Zapix/las_palabras_bot/pull/87)). Commit SHAs from this
+  repository are unchanged there, so links to old commits still resolve in the monorepo.
+- The only open issue (#10) was transferred to
+  [Zapix/las_palabras_bot#86](https://github.com/Zapix/las_palabras_bot/issues/86).
+- API types are now generated from the committed OpenAPI contract
+  (`contracts/openapi/api.json`) instead of a running backend, and CI, linting and the
+  pre-commit hook are shared with the API.
 
-## Expanding the ESLint configuration
+## Where to go now
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Code: [`apps/web`](https://github.com/Zapix/las_palabras_bot/tree/main/apps/web)
+- Setup and development: [apps/web/README.md](https://github.com/Zapix/las_palabras_bot/blob/main/apps/web/README.md)
+- Issues and pull requests: [Zapix/las_palabras_bot](https://github.com/Zapix/las_palabras_bot/issues)
